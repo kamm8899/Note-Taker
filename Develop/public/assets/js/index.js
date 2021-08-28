@@ -33,14 +33,26 @@ const getNotes = () =>
     },
   });
 
-const saveNote = (note) =>
+const saveNote = (note) =>{
+  console.log("saveNote");
   fetch('/api/notes', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(note),
-  });
+  })
+  .then(async response => {
+    try {
+     const data = await response.json()
+     console.log('response data?', data)
+   } catch(error) {
+     console.log('Error happened here!')
+     console.error(error)
+   }
+});
+}
+
 
 const deleteNote = (id) =>
   fetch(`/api/notes/${id}`, {
