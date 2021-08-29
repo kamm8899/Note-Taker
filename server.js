@@ -3,6 +3,7 @@ const PORT = process.env.PORT || 3001;
 const app = express();
 const path = require('path');
 const fs = require('fs');
+const uniqid = require('uniqid');
 
 
 // Sets up the Express app to handle data parsing
@@ -26,20 +27,27 @@ app.get('/notes', (req, res) =>{
 
 //write a new function
 app.post('/api/notes', (req, res) =>{
-   
     const note= req.body;
-    fs.readFile('db.json', function (err, data){
+    fs.readFile(path.join(__dirname,'./Develop/db/db.json'),'utf-8', function (err, data){
         var json = JSON.parse(data);
+        note.id= uniqid();
         json.push(note);
-        
-    fs.writeFile(db.json, JSON.stringify(json))
-    return res.json(note);
+    fs.writeFile(path.join(__dirname,'./Develop/db/db.json'), JSON.stringify(json),function (err,data){
+        console.log("message");
+        res.json(note);
+
     })
-    return note;
+    
+    
+    })
 })
 
 app.get('/api/notes', (req, res) =>{
-    res.sendFile(path.join(__dirname, './Develop/db/db.json'));
+    fs.readFile(path.join(__dirname,'./Develop/db/db.json'),'utf-8', function (err, data){
+        var json = JSON.parse(data);
+        res.json(json);
+    
+})
 })
 // app.get('/api/notes', (req,res) =>{
 //     res.sendFile(path.join(savedNotes));
@@ -53,14 +61,3 @@ app.get('/api/notes', (req, res) =>{
 app.listen(PORT, () => {
     console.log(`App listening on PORT ${PORT}`);
   });
-
-
-// WHEN I click on the link to the notes page
-// THEN I am presented with a page with existing notes listed in the left-hand column, plus empty fields to enter a new note title and the note’s text in the right-hand column
-
-// WHEN I click on the Save icon
-// THEN the new note I have entered is saved and appears in the left-hand column with the other existing notes
-// WHEN I click on an existing note in the list in the left-hand column
-// THEN that note appears in the right-hand column
-// WHEN I click on the Write icon in the navigation at the top of the page
-// THEN I am presented with empty fields to enter a new note title and the note’s text in the right-hand column
