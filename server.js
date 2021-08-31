@@ -5,19 +5,16 @@ const path = require('path');
 const fs = require('fs');
 const uniqid = require('uniqid');
 
-
 // Sets up the Express app to handle data parsing
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(__dirname + '/Develop/public'));
-
 
 // Update the home route to return `index.html`
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, './Develop/public/index.html'));
    
    });
-
 
 //Button Notes 
 app.get('/notes', (req, res) =>{
@@ -49,8 +46,18 @@ app.get('/api/notes', (req, res) =>{
     
 })
 })
-// app.get('/api/notes', (req,res) =>{
-//     res.sendFile(path.join(savedNotes));
+//delete Request 
+app.delete('/api/notes/:id',(req,res) =>{
+    const notefile = req.body;
+    fs.readFile(path.join(__dirname,'./Develop/db/db.json'),'utf-8', function (err, data){
+        var json = JSON.parse(data);
+     const newArray= json.filter((note) => note.id !== req.params.id);
+     fs.writeFile(path.join(__dirname,'./Develop/db/db.json'), JSON.stringify(newArray),function (err,data){
+        console.log("message");
+        res.json(newArray);
+});
+    })
+})
 
 
 
