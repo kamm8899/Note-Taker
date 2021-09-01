@@ -11,9 +11,11 @@ For the Bonus, the functionality of deleting a post was also created, that allow
 # Contributors
 No student Contributors in this repo
 
+# 
+
 # Demonstration
-![ScreenShot](./assets/NotesLanding.png)
-![ScreenShot](./assets/NotesPage.png)
+![ScreenShot](./Develop/assets/NotesLanding.png)
+![ScreenShot](./Develop/assets/NotesPage.png)
 
 ## Heroku Location
 https://dashboard.heroku.com/apps/notetakerj
