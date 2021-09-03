@@ -18,5 +18,5 @@ No student Contributors in this repo
 ![ScreenShot](./Develop/assets/NotesPage.png)
 
 ## Heroku Location
-https://dashboard.heroku.com/apps/notetakerj
+https://notetakerj.herokuapp.com/
 
